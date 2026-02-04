@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MKS Tech Solutions | Sorteio iPhone 17</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        :root {
+            --bg-dark: #05070a;
+            --accent-purple: #7c3aed;
+            --accent-blue: #2563eb;
+            --success-green: #22c55e;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% -10%, #1e1b4b 0%, #05070a 100%);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        #qtd {
+            width: 70px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .neon-purple {
+            border: 1px solid rgba(124, 58, 237, 0.4);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.1);
+        }
+
+        input {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            font-size: 16px !important;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--accent-purple) !important;
+            outline: none;
+            background: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+        }
+
+        /* Animação do Check de Sucesso */
+        .success-checkmark {
+            width: 80px; height: 80px; margin: 0 auto;
+        }
+        .check-icon {
+            width: 80px; height: 80px; position: relative; border-radius: 50%;
+            box-sizing: content-box; border: 4px solid var(--success-green);
+        }
+        .check-icon::after {
+            content: ''; position: absolute; left: 15px; top: 40px;
+            width: 20px; height: 40px; border-right: 4px solid var(--success-green);
+            border-bottom: 4px solid var(--success-green);
+            transform: rotate(45deg); transform-origin: left top;
+            animation: checkmark 0.8s ease;
+        }
+        @keyframes checkmark {
+            0% { height: 0; width: 0; opacity: 1; }
+            20% { height: 0; width: 20px; opacity: 1; }
+            40% { height: 40px; width: 20px; opacity: 1; }
+            100% { height: 40px; width: 20px; opacity: 1; }
+        }
+
+        .modal-show { display: flex !important; animation: fadeIn 0.3s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="fixed top-0 w-full bg-[#05070a]/70 backdrop-blur-xl z-50 border-b border-white/5 px-4 py-3">
+        <div class="max-w-md mx-auto flex items-center justify-between">
+            <div class="flex flex-col">
+                <h2 class="text-base font-black tracking-tighter text-white italic leading-none uppercase">MKS <span class="text-purple-500">TECH</span></h2>
+                <p class="text-[7px] text-slate-500 uppercase tracking-[0.3em] font-bold mt-1">Solutions</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="text-right">
+                    <div class="flex justify-between w-20 text-[8px] font-black text-slate-400 mb-1 uppercase tracking-widest">
+                        <span id="pct">0%</span>
+                        <span>Progresso</span>
+                    </div>
+                    <div class="w-20 bg-slate-900 h-1 rounded-full overflow-hidden border border-white/5">
+                        <div id="barra" class="bg-gradient-to-r from-blue-600 to-purple-600 h-full transition-all duration-1000" style="width: 0%"></div>
+                    </div>
+                </div>
+                <button onclick="toggleModal('modal-consulta')" class="text-[9px] font-black bg-white/5 border border-white/10 px-3 py-2 rounded-lg uppercase tracking-wider">Meus Números</button>
+                <button onclick="mostrarRegras()" class="w-8 h-8 flex items-center justify-center glass-card rounded-full text-blue-400 font-black shadow-lg">?</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center pt-28 pb-10 px-4">
+        <div class="w-full max-w-md glass-card neon-purple rounded-[2rem] overflow-hidden">
+            <div class="relative w-full aspect-video overflow-hidden">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_641716-MLA94920239704_102025-O.webp" class="w-full h-full object-cover opacity-80" alt="iPhone 17">
+                <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#05070a] to-transparent"></div>
+            </div>
+            
+            <div class="px-6 pb-8 text-center relative -mt-6">
+                <div class="inline-flex items-center bg-purple-600/90 backdrop-blur-md text-[9px] font-black px-3 py-1 rounded-full mb-4 shadow-lg uppercase tracking-widest">
+                    💎 Oportunidade Única
+                </div>
+                <h1 class="text-3xl font-black text-white italic uppercase tracking-tighter leading-tight">iPhone 17 </h1>
+                <div class="flex items-center justify-center gap-3 mt-3">
+                    <span class="h-[1px] w-6 bg-slate-800"></span>
+                    <p class="text-blue-400 font-bold text-lg italic">R$ 0,75 <span class="text-[9px] text-slate-500 not-italic font-medium uppercase tracking-[0.1em]">/ cota</span></p>
+                    <span class="h-[1px] w-6 bg-slate-800"></span>
+                </div>
+
+                <div class="mt-6 space-y-3">
+                    <input type="text" id="nome" placeholder="Nome Completo" class="w-full p-4 rounded-xl outline-none">
+                    <input type="tel" id="cpf" placeholder="CPF (Apenas números)" maxlength="14" class="w-full p-4 rounded-xl outline-none" oninput="maskCPF(this)">
+                    <input type="tel" id="whatsapp" placeholder="WhatsApp com DDD" maxlength="15" class="w-full p-4 rounded-xl outline-none" oninput="maskZap(this)">
+                    <input type="email" id="email" placeholder="E-mail para os números" class="w-full p-4 rounded-xl outline-none">
+                    
+                    <div class="bg-white/[0.03] p-4 rounded-[1.5rem] border border-white/5 mt-4">
+                        <div class="flex items-center justify-between">
+                            <button onclick="change(-1)" class="w-12 h-12 flex items-center justify-center glass-card hover:bg-white/10 rounded-xl font-bold text-white transition-all active:scale-75 select-none">-</button>
+                            <div class="text-center flex-1">
+                                <input type="number" id="qtd" value="14" min="14" class="bg-transparent border-none text-center font-black text-3xl w-full outline-none text-white" oninput="calc()">
+                                <div class="text-[8px] font-black text-slate-500 uppercase mt-1 tracking-[0.15em]">Total: <span id="total" class="text-blue-400">10,50</span></div>
+                            </div>
+                            <button onclick="change(1)" class="w-12 h-12 flex items-center justify-center glass-card hover:bg-white/10 rounded-xl font-bold text-white transition-all active:scale-75 select-none">+</button>
+                        </div>
+                    </div>
+
+                    <button onclick="comprar()" id="btn-comprar" class="btn-gradient w-full text-white font-black py-4 rounded-xl shadow-xl active:scale-[0.97] transition-all uppercase tracking-[0.2em] text-xs mt-4">
+                        Confirmar Reserva
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-consulta" class="hidden fixed inset-0 bg-black/90 backdrop-blur-md z-[60] p-6 items-center justify-center">
+        <div class="w-full max-w-xs glass-card p-8 rounded-3xl text-center border-purple-500/30">
+            <h2 class="text-xl font-black mb-4 uppercase italic">Meus Números</h2>
+            <input type="tel" id="cpf-busca" placeholder="000.000.000-00" maxlength="14" class="w-full p-4 rounded-xl mb-4 text-center" oninput="maskCPF(this)">
+            <button onclick="buscarNumeros()" id="btn-buscar" class="btn-gradient w-full py-4 rounded-xl font-black text-xs uppercase mb-6">Consultar</button>
+            <div id="resultado-busca" class="text-[10px] text-slate-300 break-words max-h-40 overflow-y-auto mb-4 leading-relaxed font-medium"></div>
+            <button onclick="toggleModal('modal-consulta')" class="text-[9px] text-slate-500 font-black uppercase underline">Fechar</button>
+        </div>
+    </div>
+
+    <div id="modal-sucesso" class="hidden fixed inset-0 bg-black/95 backdrop-blur-2xl z-[70] p-6 items-center justify-center">
+        <div class="w-full max-w-xs text-center">
+            <div class="success-checkmark mb-6">
+                <div class="check-icon"></div>
+            </div>
+            <h2 class="text-2xl font-black text-white uppercase italic mb-2">Reserva Realizada!</h2>
+            <p class="text-slate-400 text-[10px] mb-6 leading-relaxed">Seu pedido foi gerado. Assim que o PIX for confirmado, seus números aparecerão em <span class="text-purple-400 font-bold">"Meus Números"</span>.</p>
+            
+            <div class="space-y-3">
+                <button onclick="toggleModal('modal-sucesso')" class="btn-gradient w-full py-4 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg">Entendido</button>
+                <a href="https://wa.me/555132884938?text=Olá,%20fiz%20uma%20reserva%20na%20MKS%20Tech%20e%20gostaria%20de%20suporte." target="_blank" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-[10px] bg-green-600/20 text-green-400 border border-green-600/30 uppercase tracking-widest">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-4 h-4" style="filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);">
+                    Falar com Suporte
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="pb-6 text-center">
+        <p class="text-[7px] text-slate-700 font-bold uppercase tracking-[0.4em] mb-2">Segurança MKS & Mercado Pago</p>
+        <div class="text-[9px] font-black text-slate-500 italic opacity-50 tracking-tighter uppercase">MKS TECH SOLUTIONS</div>
+    </footer>
+
+    <script>
+        const API = "https://script.google.com/macros/s/AKfycbyBUB7UyA3EOQEW04HVcYC21W4Vusrh_gYgXrRGLDrVwwRdQkSdKtD0_4lnTZ2VMrzt/exec";
+        const PK = "APP_USR-200bf519-7823-4c01-a13a-b548527118a9";
+        let mp; try { mp = new MercadoPago(PK, { locale: 'pt-BR' }); } catch(e) {}
+
+        function maskCPF(i) {
+            let v = i.value.replace(/\D/g, "");
+            v = v.replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+            i.value = v;
+        }
+
+        function maskZap(i) {
+            let v = i.value.replace(/\D/g, "");
+            v = v.replace(/^(\d{2})(\d)/g, "($1) $2").replace(/(\d)(\d{4})$/, "$1-$2");
+            i.value = v;
+        }
+
+        function calc() {
+            const q = document.getElementById('qtd').value;
+            document.getElementById('total').innerText = (q * 0.75).toFixed(2).replace('.', ',');
+        }
+
+        function change(v) { 
+            const i = document.getElementById('qtd');
+            i.value = Math.max(14, parseInt(i.value) + v);
+            calc();
+        }
+
+        function toggleModal(id) {
+            const m = document.getElementById(id);
+            m.classList.toggle('hidden');
+            m.classList.toggle('modal-show');
+        }
+
+        function mostrarRegras() {
+            alert("📋 REGRAS MKS TECH SOLUTIONS:\n\n1. Sorteio via Loteria Federal.\n2. Números ALEATÓRIOS após pagamento.\n3. Ocorre apenas com 100% das cotas vendidas.\n4. Ganhador avisado via WhatsApp/E-mail.");
+        }
+
+        async function status() {
+            try {
+                const r = await fetch(API);
+                const d = await r.json();
+                document.getElementById('barra').style.width = d.porcentagem + "%";
+                document.getElementById('pct').innerText = Math.floor(d.porcentagem) + "%";
+            } catch(e){}
+        }
+
+        async function buscarNumeros() {
+            const cpf = document.getElementById('cpf-busca').value;
+            const resDiv = document.getElementById('resultado-busca');
+            if(cpf.length < 14) return alert("CPF Incompleto");
+            resDiv.innerText = "Buscando cotas aprovadas...";
+            try {
+                const r = await fetch(API + "?cpf=" + cpf.replace(/\D/g, ""));
+                const d = await r.json();
+                resDiv.innerText = d.numeros || "Nenhuma cota paga encontrada para este CPF.";
+            } catch(e) { resDiv.innerText = "Erro ao conectar."; }
+        }
+
+        async function comprar() {
+            if (typeof MercadoPago === 'undefined') return alert("Carregando sistema...");
+            const btn = document.getElementById('btn-comprar');
+            const d = {
+                nome: document.getElementById('nome').value,
+                cpf: document.getElementById('cpf').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                email: document.getElementById('email').value,
+                qtd: document.getElementById('qtd').value
+            };
+
+            if(!d.nome || d.cpf.length < 14 || !d.whatsapp || !d.email) return alert("Preencha todos os campos corretamente.");
+            
+            btn.innerText = "CONECTANDO..."; btn.disabled = true;
+
+            try {
+                const r = await fetch(API, { method: 'POST', body: JSON.stringify(d) });
+                const res = await r.json();
+                
+                mp.checkout({ preference: { id: res.id }, autoOpen: true });
+
+                setTimeout(() => {
+                    toggleModal('modal-sucesso');
+                    btn.innerText = "Confirmar Reserva";
+                    btn.disabled = false;
+                }, 3000);
+
+            } catch(e) {
+                alert("Erro ao processar.");
+                btn.innerText = "Confirmar Reserva"; btn.disabled = false;
+            }
+        }
+        status();
+        setInterval(status, 60000);
+    </script>
+</body>
+</html>
