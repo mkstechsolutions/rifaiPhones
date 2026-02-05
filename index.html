@@ -185,7 +185,7 @@
     </footer>
 
     <script>
-        const API = "https://script.google.com/macros/s/AKfycbyBUB7UyA3EOQEW04HVcYC21W4Vusrh_gYgXrRGLDrVwwRdQkSdKtD0_4lnTZ2VMrzt/exec";
+        const API = "https://script.google.com/macros/s/AKfycbyLQlCm9MaEJS9TLKvYFTKwh7OCfPlxrgxxbd7Q5-rA-dIS6pHsDZlWq5XqWDXSBAY/exec";
         const PK = "APP_USR-200bf519-7823-4c01-a13a-b548527118a9";
         let mp; try { mp = new MercadoPago(PK, { locale: 'pt-BR' }); } catch(e) {}
 
@@ -246,13 +246,12 @@
         async function comprar() {
             if (typeof MercadoPago === 'undefined') return alert("Carregando sistema...");
             
-            // TRAVA DE SEGURANÇA: VALOR MÍNIMO
             const qtdInput = document.getElementById('qtd');
             if(parseInt(qtdInput.value) < 14) {
                 alert("O pedido mínimo é de 14 cotas (R$ 10,50). Ajustamos para você!");
                 qtdInput.value = 14;
                 calc();
-                return; // Para a execução para o usuário conferir o valor
+                return;
             }
 
             const btn = document.getElementById('btn-comprar');
